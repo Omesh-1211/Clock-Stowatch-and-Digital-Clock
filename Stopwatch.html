@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+</head>
+<style>
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: url('https://images.unsplash.com/photo-1505483531331-3df5ed411f6c?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      padding-top: 50px;
+      color: #fff;
+    }
+
+    nav {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 15px 30px;
+      border-radius: 12px;
+      margin-bottom: 40px;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    nav ul li {
+      cursor: pointer;
+      font-size: 18px;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li:hover {
+      color: #ffd700;
+    }
+
+    .box {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 30px 60px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      margin-bottom: 30px;
+    }
+
+    .countdown {
+      font-size: 48px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .handle {
+      display: flex;
+      gap: 20px;
+    }
+
+    .handle button {
+      background-color: rgba(255, 255, 255, 0.15);
+      border: none;
+      padding: 15px;
+      border-radius: 50%;
+      transition: background 0.3s ease, transform 0.2s ease;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+    }
+
+    .handle button:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: scale(1.1);
+    }
+
+    .handle img {
+      width: 20px;
+      height: 20px;
+    }
+
+    @media (max-width: 500px) {
+      .countdown {
+        font-size: 36px;
+      }
+
+      .handle {
+        flex-direction: column;
+      }
+    }
+
+    
+</style>
+
+<body>
+    <nav>
+        <ul>
+            <li>Digital Clock</li>
+            <li>Stopwatch</li>
+          
+
+        </ul>
+    </nav>
+    <div class="box" id="outerBox">
+        <div class="countdown">00:00:00</div>
+    </div>
+    <div class="handle">
+        <div class="play">
+            <button class="play"><img width="20px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUCAMAAABC4vDmAAAAYFBMVEUAAAD///8jIyPh4eG6uro/Pz8aGhr39/f6+vqkpKRmZmbu7u7S0tJaWlrBwcHJycmJiYlMTEyQkJANDQ2ZmZk1NTVRUVHY2NhwcHBra2t8fHzn5+cTExMpKSlERESDg4OH60GOAAAEvUlEQVR4nO2c6ZqkKgyGoUSxyrX2xZ6Z+7/L0VpcQQkEK8+c8/0v+20IIYQQxgmKfRtApX8WSlZpkYtaeXGtJMIHnaCCQhx2YcQGisLdQRTBN6BkJR7ZmWl1zh7CetSsoKq8vOh5Ol3KvFoHSopyPGN6RWEp4OMFhbqWoSnQR2F59QkVp5nxGA3GKytAwwWAkmJvQ/TSHjKLxlCJC9ILK8GGyjM3pEZZjgoV3I/uTIwd72Y+1QQq3lqZt0rRNsaBShFmrtMlRYCKtxtMJsY2y4O1BBXccJEa3ZYsawEqBftvE50XpnAe6uQDqdHJHsob0wLVDFSy88fE2G7Gv+uhEg8m3tdNT6WFSryYeF+hlkoHlaB6TLUyHZUGyv84NdKNlRrKtz19pLErNZTXddfXzhzKo38aS+mvVFArMqmpFFDpmkyMKfbBKVQwc+71oXAaM0yg4pUWXqfbJL6aQG3XZmJsuwSVIseZJtqMzWoEFa+wu0yVxbNQX5i8Rts5qADtLAVTFMxA3b/DxNhdD5WjnINtdMx1UGvEUDoNYqs+lPgeE2NCDSUdcz1u2kslFHCgfsIQ1QSFCgo2UJttbQTVCdGF7GMFVAH5ws/7/yqMUtdmShVQoKXXhmYSb7CyKdQV9PGiM4ACK/6KrhOoEvL7zWBbOCANVjmGkqCD3hCKFzinxFCOoGD+YATFJU5WVIygQLM3gUKyrHIIVcEmYApV/1vugxVWA6gc9kUVFEIqMsoHULDZU0PVPuvHkarsQ0mgY1ZDuTv4i+xBVcAf66C4PLhRVT0oaCSlhaoty2kZih7UAw+qHiyHiObRg4LGwXNQtWXZh9VZBwXOacxD1cvQFuoctFCgUMoAqras35ZURQsFPjEsQlkvQ9FCgT+wDGXrsw4tFDjvagLFE5vB2rVQ4E3LCMpqGYYtFHh/N4Ti8g/0y9EHSkJ/aQxlETrINxR054NA8QpoWdUbCp6jBkBBl+H1DQX2nTAonkDO3sUbKvcMxSvANpa/oeApICAUJLAVq0EB/sJ/HMpi+kgaOkmXQNJ5ktxmfG7I4CzRZ0P2F7ok0LNbF7p4C/JyeETcBXl+wmGoNT3VhcN+Dg5WFxjdwcHDESsBB8IvdUcs/MOodbaxO4xiH9sTYA6uU+/YjpvgiHP767BeggM1FWRrTU/1U0GISbPCqbChnzRDSy86DRMbpheRErGxcMxaDxKxOClr+0X30SBljZLcz3+5Mo2S++7XIPHN/UZ5dA3ifGEkMKqJRhdGjldrVgHBVOOrNZdLyFg4W9NTk0tIh+ta+UCqT5hc11pfbMfC9erqI8XFNmxTPrTW5OjCe1KUAMBOf+9iCSxrekpVLBGDAo7oVPuUK5Y1NVKWlUBDheMZcZSYpgCHZqkSyaIumuVvJAsFaZZU0iw+JVmmS7OgmWTpN80ieZrPCXiwyounTiYPL2g+UaH5mIfmsyeaD8RoPqUj+eiQ5vNMmg9ZaT75pfk4mpN8Ru6TyuHBva/WBKFTawKaTRxotrvg2I1BMozGIJxmCxVOstlMI4JteTjNBkacZKunRvZNsVIT+7aD4hTbhz1FsNHaU/Ra0r0kq5xY876PqLU57EtWV0INIX3pfyhT/QVQAUHUNp2uZwAAAABJRU5ErkJggg==" alt=""></button>
+            <button class="pause"><img width="20px" src="https://cdn-icons-png.flaticon.com/512/61/61180.png" alt=""></button>
+            <button class="reset"><img width="20px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrsquMQXN-7Rz4ZFlSL83IIyj8JB2VNGBz1A&s" alt=""></button>
+
+        </div>
+    </div>
+</body>
+<script src="script2.js"></script>
+
+</html>
